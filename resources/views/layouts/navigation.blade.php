@@ -34,6 +34,18 @@
                 <li class="pc-item pc-caption">
                     <label>Lainnya</label>
                 </li>
+                @if (auth()->user()->role == 'admin')
+                    <li class="pc-item">
+                        <a href="{{ route('user.index') }}" class="pc-link">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">supervised_user_circle</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Manajemen Pengguna
+                            </span>
+                        </a>
+                    </li>
+                @endif
                 <li class="pc-item">
                     <a href="{{ route('laporan.index') }}" class="pc-link">
                         <span class="pc-micon">

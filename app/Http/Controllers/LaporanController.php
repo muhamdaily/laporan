@@ -35,7 +35,11 @@ class LaporanController extends Controller
         $kegiatans = Kegiatan::whereBetween('tanggal', [$dari_tanggal, $sampai_tanggal])
             ->get();
 
-        $pdf = PDF::loadView('laporan.cetak', compact('kegiatans', 'dari_tanggal', 'sampai_tanggal'));
-        return $pdf->download('laporan_kegiatan.pdf');
+        $pdf = PDF::loadView('laporan.cetak', compact('kegiatans', 'dari_tanggal', 'sampai_tanggal'))->setPaper('a4', 'portrait');
+
+        $uid = uniqid();
+        $format = 'laporan-kegiatan_' . auth()->user()->nim . '_' . $uid;
+
+        return $pdf->download($format . '.pdf');
     }
 }

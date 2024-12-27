@@ -13,8 +13,12 @@
                         role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="https://placehold.jp/300x300.png" alt="user-image" class="user-avtar">
                         <span>
-                            <span class="user-name">MuhamDaily</span>
-                            <span class="user-desc">Administrator</span>
+                            <span class="user-name">
+                                {{ auth()->user()->name }}
+                            </span>
+                            <span class="user-desc">
+                                {{ auth()->user()->nim }}
+                            </span>
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
@@ -22,10 +26,15 @@
                             <i class="material-icons-two-tone">account_circle</i>
                             <span>Pengaturan Akun</span>
                         </a>
-                        <a href="auth-signin-3.html" class="dropdown-item">
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="event.preventDefault(); document.getElementById('keluar').submit();">
                             <i class="material-icons-two-tone">chrome_reader_mode</i>
                             <span>Keluar</span>
                         </a>
+
+                        <form action="{{ route('logout') }}" method="POST" id="keluar" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>

@@ -12,35 +12,58 @@
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 20px;
+            width: 100%;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
-        .header h1 {
+        .header table {
+            width: 100%;
+            border: 0;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .header td {
+            vertical-align: top;
+        }
+
+        .header-content {
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .header-content h1 {
             margin: 0;
-            font-size: 16px;
-            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .header h2 {
+        .header-content p {
             margin: 5px 0;
-            font-size: 14px;
+            font-size: 12px;
         }
 
+        /* Style untuk informasi */
         .info {
             margin-bottom: 20px;
         }
 
         .info table {
             width: 100%;
+            margin-top: 10px;
         }
 
         .info td {
             padding: 5px 0;
         }
 
+        /* Style untuk tabel laporan */
         table.laporan {
             width: 100%;
             border-collapse: collapse;
@@ -62,28 +85,42 @@
             margin-top: 20px;
             text-align: right;
         }
+
+        .footer p {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>Laporan Kegiatan Magang UPT TI</h1>
-        <h2>Institut Teknologi dan Sains Mandala</h2>
+        <table>
+            <tr>
+                <td>
+                    <img src="{{ public_path('assets/logo/mandala.png') }}" alt="Logo">
+                </td>
+                <td class="header-content">
+                    <h1>INSTITUT TEKNOLOGI DAN SAINS MANDALA</h1>
+                    <p>Kampus: Jl. Sumatera No. 118 - 120 Jember 68121 Telp. (0331) 334 324 Fax. (0331) 330 941</p>
+                    <p>e-mail: itsm@itsm.ac.id ; website: www.itsm.ac.id</p>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="info">
         <table>
             <tr>
                 <td width="30%">Nama</td>
-                <td>: {{ $nama ?? 'Muhammad Mauribi' }}</td>
+                <td>: {{ auth()->user()->name }}</td>
             </tr>
             <tr>
                 <td>NIM</td>
-                <td>: {{ $nim ?? '23060005' }}</td>
+                <td>: {{ auth()->user()->nim }}</td>
             </tr>
             <tr>
-                <td>Fakultas</td>
-                <td>: {{ $fakultas ?? 'Sistem dan Teknologi Informasi' }}</td>
+                <td>Program Studi</td>
+                <td>: {{ auth()->user()->prodi }}</td>
             </tr>
             <tr>
                 <td>Periode Magang</td>
