@@ -11,8 +11,8 @@ class KegiatanController extends Controller
 {
     public function index()
     {
-        $data = Kegiatan::all();
-        $total = Kegiatan::count();
+        $data = Kegiatan::where('user_id', auth()->id())->get();
+        $total = $data->count();
         return view('kegiatan.index', compact('data', 'total'));
     }
 
@@ -33,7 +33,10 @@ class KegiatanController extends Controller
             'files.*' => 'nullable|file|mimes:pdf,docx,xlsx,pptx,jpg,jpeg,png,gif,zip,rar|max:10240',
         ]);
 
+        $user = auth()->user();
+
         $kegiatan = Kegiatan::create([
+            'user_id' => $user->id,
             'tanggal' => $request->tanggal,
             'uraian_kegiatan' => $request->uraian_kegiatan,
             'hasil_kegiatan' => $request->hasil_kegiatan,
@@ -69,6 +72,10 @@ class KegiatanController extends Controller
             'files.*' => 'nullable|file|mimes:pdf,docx,xlsx,pptx,jpg,jpeg,png,gif,zip,rar|max:10240',
         ]);
 
+        if ($kegiatan->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $kegiatan->update([
             'tanggal' => $request->tanggal,
             'uraian_kegiatan' => $request->uraian_kegiatan,
@@ -102,6 +109,10 @@ class KegiatanController extends Controller
 
     public function destroy(Kegiatan $kegiatan)
     {
+        if ($kegiatan->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         foreach ($kegiatan->files as $file) {
             Storage::disk('public')->delete($file->file_path);
             $file->delete();

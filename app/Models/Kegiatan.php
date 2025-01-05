@@ -10,6 +10,7 @@ class Kegiatan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'tanggal',
         'uraian_kegiatan',
         'hasil_kegiatan',
@@ -19,5 +20,10 @@ class Kegiatan extends Model
     public function files()
     {
         return $this->hasMany(File::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

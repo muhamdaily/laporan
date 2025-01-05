@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
 
     // Route untuk menampilkan halaman manajemen pengguna
     Route::get('manajemen-pengguna', [UserController::class, 'index'])->name('user.index');
+    Route::post('manajemen-pengguna', [UserController::class, 'store'])->name('user.store');
+    Route::put('manajemen-pengguna/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('manajemen-pengguna/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
     // Route untuk laporan kegiatan
     Route::get('laporan-kegiatan', [LaporanController::class, 'index'])->name('laporan.index');

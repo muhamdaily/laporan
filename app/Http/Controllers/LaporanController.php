@@ -10,7 +10,8 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        $total = Kegiatan::count();
+        $data = Kegiatan::where('user_id', auth()->id())->get();
+        $total = $data->count();
         return view('laporan.index', compact('total'));
     }
 
