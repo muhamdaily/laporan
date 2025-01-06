@@ -123,7 +123,7 @@
                 <td>: {{ auth()->user()->prodi }}</td>
             </tr>
             <tr>
-                <td>Periode Magang</td>
+                <td>Tanggal Kegiatan</td>
                 <td>
                     : {{ \Carbon\Carbon::parse($dari_tanggal)->translatedFormat('d F Y') }} s/d
                     {{ \Carbon\Carbon::parse($sampai_tanggal)->translatedFormat('d F Y') }}

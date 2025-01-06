@@ -20,7 +20,8 @@ class LaporanController extends Controller
         $dari_tanggal = $request->dari_tanggal;
         $sampai_tanggal = $request->sampai_tanggal;
 
-        $kegiatans = Kegiatan::whereBetween('tanggal', [$dari_tanggal, $sampai_tanggal])
+        $kegiatans = Kegiatan::where('user_id', auth()->id())
+            ->whereBetween('tanggal', [$dari_tanggal, $sampai_tanggal])
             ->get();
 
         return response()->json([
@@ -33,7 +34,8 @@ class LaporanController extends Controller
         $dari_tanggal = $request->dari_tanggal;
         $sampai_tanggal = $request->sampai_tanggal;
 
-        $kegiatans = Kegiatan::whereBetween('tanggal', [$dari_tanggal, $sampai_tanggal])
+        $kegiatans = Kegiatan::where('user_id', auth()->id())
+            ->whereBetween('tanggal', [$dari_tanggal, $sampai_tanggal])
             ->get();
 
         $pdf = PDF::loadView('laporan.cetak', compact('kegiatans', 'dari_tanggal', 'sampai_tanggal'))->setPaper('a4', 'portrait');
